@@ -1,12 +1,9 @@
 package com.usa.payment.model;
 
-
-//import java.time.Instant;
 import java.time.Instant;
 import java.util.Date;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,29 +11,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "accounts")
-public class Account {
-
+@Table(name = "transfers")
+public class Transfer {
     @Id
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "balance")
-    private float balance;
-
     @ManyToOne
-    @JoinColumn(name = "person_id", nullable = false)
- //   @Column(name = "person_id", nullable = false)
-    private Person person;
-
-    @Column(name = "updated_on")
-    private Instant updatedOn;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @Column(name = "created_on")
     private Date createdOn;
 
-    @Column(name = "account_status")
-    private String accountStatus;
+    @Column(name = "updated_on")
+    private Instant updatedOn;
 
 
 }

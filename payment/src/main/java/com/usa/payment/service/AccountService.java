@@ -4,29 +4,37 @@ import com.usa.payment.Dto.AccountRequestDto;
 import com.usa.payment.Dto.AccountResponseDto;
 import com.usa.payment.Dto.ResponseDto;
 import com.usa.payment.model.Account;
+import com.usa.payment.model.Person;
 import com.usa.payment.repository.AccountRepository;
+import com.usa.payment.repository.PersonRepository;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-
 public class AccountService {
-    @Qualifier("accountRepository")
+  //  @Qualifier("accountRepository")
      @Autowired
     private AccountRepository accountRepository;
+    private PersonRepository personRepository;
 
 
     public ResponseDto saveAccount(AccountRequestDto accountRequestDto) {
+
+        Person person=personRepository.findById(accountRequestDto.getPersonId()).get();
+        if(person==null){
+            return new ResponseDto(false,"person Id does not exit");
+        }
         Account account = new Account();
         account.setAccountStatus("Active");
 
+
         account.setBalance(accountRequestDto.getBalance());
-        account.setPersonId(accountRequestDto.getPersonId());
+ //       account.setPersonId(person);
+        account.setPerson(person);
         account.setCreatedOn(new Date());
         account.setUpdatedOn(Instant.now());
 
@@ -39,7 +47,8 @@ public class AccountService {
 
         Account account = accountRepository.findById(id).get();
         account.setBalance(accountRequestDto.getBalance());
-        account.setPersonId(accountRequestDto.getPersonId());
+//        account.setPersonId(accountRequestDto.getPersonId());
+        account.setPerson(new Person());
         account.setCreatedOn(new Date());
 
         account.setUpdatedOn(Instant.now());
