@@ -17,17 +17,19 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @PostMapping("/category")
+    @PostMapping("/saveCategory")
     public ResponseDto saveCategory(@RequestBody CategoryRequestDto categoryRequestDto) {
-       return categoryService.saveCategory(categoryRequestDto);
+      return categoryService.saveCategory(categoryRequestDto);
+
+       // return new ResponseDto(true,"category saving successfully");
     }
 
-    @PostMapping("/updateCategory/{id}")
+    @PutMapping("/updateCategory/{id}")
     public ResponseDto updateCategoryById(@RequestBody CategoryRequestDto categoryRequestDto, @PathVariable Long id) {
        return categoryService.updateCategory(categoryRequestDto, id);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteCategory/{id}")
     public ResponseDto deleteCategoryById(@PathVariable("id") Long id) {
        return categoryService.deleteCategoryById((id));
     }
@@ -37,5 +39,9 @@ public class CategoryController {
         return categoryService.ListAllCategory();
     }
 
+    @GetMapping("/getCategory/{id}")
+    public Category getCategory(@PathVariable Long id) {
+        return categoryService.getCategoryById(id);
+    }
 
 }

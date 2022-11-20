@@ -19,21 +19,21 @@ public class PersonController {
 
     @PostMapping("/createPerson")
     public ResponseDto createPerson(@RequestBody PersonRequestDto personRequestDto) {
-         personService.createPerson(personRequestDto);
-        return new ResponseDto(true, "Updated Account Successfully");
+        return personService.createPerson(personRequestDto);
+
     }
 
     @PutMapping("/updatePerson/{id}")
-    public ResponseDto updatePerson(@PathVariable Long id, @RequestBody PersonRequestDto personRequestDto) {
-         personService.updatePerson(id,personRequestDto);
-         return new ResponseDto(true, "Updated Account Successfully");
+    public ResponseDto updatePerson(@RequestBody PersonRequestDto personRequestDto, @PathVariable Long id) {
+        return personService.updatePerson(personRequestDto, id);
+
     }
 
     @DeleteMapping("/deletePerson/{id}")
     public ResponseDto deletePersonById(@PathVariable("id") Long id) {
-          personService.deletePersonById(id);
+        return  personService.deletePersonById(id);
 
-        return new ResponseDto(true, "Deleted Account Successfully");
+
     }
 
     @GetMapping("/listPerson")
@@ -42,12 +42,12 @@ public class PersonController {
     }
 
     @GetMapping("/getPerson/{id}")
-    public ResponseDto getPerson(@PathVariable Long id) {
-         personService.getPersonById(id);
+    public Person getPerson(@PathVariable Long id) {
+       return  personService.getPersonById(id);
 
-        return new ResponseDto(true, "Get Each Person Data By Id");
+
     }
-
+//
 //    @PutMapping("/active/{id}")
 //    public ResponseDto active(@PathVariable Long id) {
 //        return accountService.active(id);

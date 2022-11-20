@@ -30,5 +30,5 @@ public class PersonResponseDto {
 
     private String email;
 
-    private int phoneNumber;
+    private Long phoneNumber;
 }

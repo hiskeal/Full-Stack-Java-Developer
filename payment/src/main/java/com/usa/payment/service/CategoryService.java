@@ -27,7 +27,8 @@ public class CategoryService {
 
     public ResponseDto updateCategory(CategoryRequestDto categoryRequestDto, Long id) {
 
-        Category category = new Category();
+        Category category = categoryRepository.findById(id).get();
+
         category.setDescription(category.getDescription());
         categoryRepository.save(category);
         return new ResponseDto(true, "Category updated");
@@ -40,6 +41,12 @@ public class CategoryService {
 
     public List<Category> ListAllCategory() {
         List<CategoryResponseDto>categoryResponseDto = new ArrayList<>();
-        return (List<Category> )categoryRepository.findAll();
+        return (List<Category>)categoryRepository.findAll();
     }
+
+    public Category getCategoryById(Long id) {
+
+        return (Category) categoryRepository.findAll();
+    }
+
 }

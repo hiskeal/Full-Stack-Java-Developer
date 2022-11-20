@@ -21,21 +21,20 @@ public class AccountController {
 
     @PostMapping("/saveAccount")
     public ResponseDto saveAccount(@RequestBody AccountRequestDto accountRequestDto) {
-         accountService.saveAccount(accountRequestDto);
-        return new ResponseDto(true, "Updated Account Successfully");
+       return accountService.saveAccount(accountRequestDto);
+
     }
 
     @PutMapping("/updateAccount/{id}")
-    public ResponseDto updateAccount(@PathVariable Long id, @RequestBody AccountRequestDto accountRequestDto) {
-         accountService.updateAccount(id,accountRequestDto);
-         return new ResponseDto(true, "Updated Account Successfully");
+    public ResponseDto updateAccount(@RequestBody AccountRequestDto accountRequestDto, @PathVariable Long id) {
+       return  accountService.updateAccount(accountRequestDto, id);
+
     }
 
     @DeleteMapping("/deleteAccount/{id}")
     public ResponseDto deleteAccount(@PathVariable("id") Long id) {
-          accountService.deleteAccountById(id);
+        return  accountService.deleteAccountById(id);
 
-        return new ResponseDto(true, "Deleted Account Successfully");
     }
 
     @GetMapping("/listAccount")
@@ -44,7 +43,7 @@ public class AccountController {
     }
 
     @GetMapping("/getAccount/{id}")
-    public Account getAccountById(@PathVariable Long id) {
+    public Account getAccount(@PathVariable Long id) {
         return accountService.getAccountById(id);
     }
 

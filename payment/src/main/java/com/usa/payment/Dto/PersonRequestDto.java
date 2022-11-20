@@ -28,5 +28,5 @@ public class PersonRequestDto {
 
     private String email;
 
-    private int phoneNumber;
+    private Long phoneNumber;
 }

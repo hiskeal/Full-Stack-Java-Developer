@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CategoryRequestDto {
 
-    private char description;
+    private String description;
 
 }

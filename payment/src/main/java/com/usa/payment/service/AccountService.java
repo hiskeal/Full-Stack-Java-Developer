@@ -2,6 +2,7 @@ package com.usa.payment.service;
 
 import com.usa.payment.Dto.AccountRequestDto;
 import com.usa.payment.Dto.AccountResponseDto;
+import com.usa.payment.Dto.PersonResponseDto;
 import com.usa.payment.Dto.ResponseDto;
 import com.usa.payment.model.Account;
 import com.usa.payment.model.Person;
@@ -19,12 +20,13 @@ public class AccountService {
   //  @Qualifier("accountRepository")
      @Autowired
     private AccountRepository accountRepository;
+     @Autowired
     private PersonRepository personRepository;
 
 
     public ResponseDto saveAccount(AccountRequestDto accountRequestDto) {
 
-        Person person=personRepository.findById(accountRequestDto.getPersonId()).get();
+        Person person = personRepository.findById(accountRequestDto.getPersonId()).get();
         if(person==null){
             return new ResponseDto(false,"person Id does not exit");
         }
@@ -33,7 +35,7 @@ public class AccountService {
 
 
         account.setBalance(accountRequestDto.getBalance());
- //       account.setPersonId(person);
+
         account.setPerson(person);
         account.setCreatedOn(new Date());
         account.setUpdatedOn(Instant.now());
@@ -43,14 +45,13 @@ public class AccountService {
         return new ResponseDto(true, "Registered Successfully");
     }
 
-    public ResponseDto updateAccount(Long id, AccountRequestDto accountRequestDto) {
+    public ResponseDto updateAccount(AccountRequestDto accountRequestDto, Long id) {
 
         Account account = accountRepository.findById(id).get();
+
         account.setBalance(accountRequestDto.getBalance());
-//        account.setPersonId(accountRequestDto.getPersonId());
         account.setPerson(new Person());
         account.setCreatedOn(new Date());
-
         account.setUpdatedOn(Instant.now());
 
         accountRepository.save(account);
@@ -59,22 +60,23 @@ public class AccountService {
     }
 
     public ResponseDto deleteAccountById(Long id) {
-
         accountRepository.deleteById(id);
-
         return new ResponseDto(true, "deleted successfully");
     }
 
     public Account getAccountById(Long id) {
-
      return accountRepository.findById(id).get();
-       // return new ResponseDto(true, "Get Each Result By Id");
+     //   return new ResponseDto(true, "Get Each Result By Id");
 
     }
 
     public List<Account> ListAll() {
         List<AccountResponseDto> accountResponseDto = new ArrayList<>();
-        return (List<Account>) accountRepository.findAll();
+        for (Account account : (List<Account>) accountRepository.findAll()) {
+
+        }
+            return (List<Account>) accountRepository.findAll();
+      //  return (List<Account>) new ResponseDto(true, "Get All Account");
     }
 
     public ResponseDto active(Long id) {

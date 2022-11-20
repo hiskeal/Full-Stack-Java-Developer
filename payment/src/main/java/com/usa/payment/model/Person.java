@@ -48,5 +48,5 @@ public class Person {
     private String email;
 
     @Column(name="phone_number")
-    private int phoneNumber;
+    private Long phoneNumber;
 }

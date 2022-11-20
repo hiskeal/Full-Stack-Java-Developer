@@ -19,21 +19,21 @@ public class TransferController {
 
     @PostMapping("/saveTransfer")
     public ResponseDto saveTransfer(@RequestBody TransferRequestDto transferRequestDto) {
-         transferService.saveTransfer(transferRequestDto);
-        return new ResponseDto(true, "Updated Account Successfully");
+        return  transferService.saveTransfer(transferRequestDto);
+
     }
 
     @PutMapping("/updateTransfer/{id}")
-    public ResponseDto updateTransfer(@PathVariable Long id, @RequestBody TransferRequestDto transferRequestDto) {
-         transferService.updateTransfer(transferRequestDto, id);
-         return new ResponseDto(true, "Updated Transfer Successfully");
+    public ResponseDto updateTransfer(@RequestBody TransferRequestDto transferRequestDto, @PathVariable Long id) {
+       return  transferService.updateTransfer(transferRequestDto, id);
+
     }
 
     @DeleteMapping("/deleteTransfer/{id}")
     public ResponseDto deleteTransfer(@PathVariable("id") Long id) {
-          transferService.deleteTransferById(id);
+        return  transferService.deleteTransferById(id);
 
-        return new ResponseDto(true, "Deleted Account Successfully");
+
     }
 
     @GetMapping("/listTransfer")
@@ -41,10 +41,10 @@ public class TransferController {
         return transferService.ListAll();
     }
 
-//    @GetMapping("/getTransfer/{id}")
-//    public Transfer getTransferById(@PathVariable Long id) {
-//         return transferService.getTransferById(id);
-//    }
+    @GetMapping("/getTransfer/{id}")
+    public Transfer getTransferById(@PathVariable Long id) {
+         return transferService.getTransferById(id);
+    }
 
 
 }

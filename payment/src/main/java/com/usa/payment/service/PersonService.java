@@ -1,11 +1,10 @@
 package com.usa.payment.service;
 
-import com.usa.payment.Dto.AccountResponseDto;
+
 import com.usa.payment.Dto.PersonRequestDto;
 import com.usa.payment.Dto.PersonResponseDto;
 import com.usa.payment.Dto.ResponseDto;
 
-import com.usa.payment.model.Account;
 import com.usa.payment.model.Person;
 import com.usa.payment.repository.PersonRepository;
 
@@ -26,10 +25,8 @@ public class PersonService {
        // person.setAccountStatus("Active");
 
         person.setAddress(personRequestDto.getAddress());
-      //  person.setId(personRequestDto.);
         person.setAge(personRequestDto.getAge());
         person.setAddress(personRequestDto.getAddress());
-     //   person.setUpdatedOn(Instant.now());
         person.setDateOfBirth(personRequestDto.getDateOfBirth());
         person.setEmail(personRequestDto.getEmail());
         person.setFirstName(personRequestDto.getFirstName());
@@ -37,25 +34,24 @@ public class PersonService {
         person.setLastName(personRequestDto.getLastName());
         person.setPhoneNumber(personRequestDto.getPhoneNumber());
         person.setDepartment(personRequestDto.getDepartment());
-     //   person.setId(person.getId());
         personRepository.save(person);
 
         return new ResponseDto(true, "Registered Successfully");
     }
 
-    public ResponseDto updatePerson(Long id, PersonRequestDto personRequestDto) {
+    public ResponseDto updatePerson(PersonRequestDto personRequestDto, Long id) {
 
         Person person = personRepository.findById(id).get();
 
         person.setAddress(personRequestDto.getAddress());
         person.setAge(personRequestDto.getAge());
         person.setDateOfBirth(personRequestDto.getDateOfBirth());
+        person.setDepartment(personRequestDto.getDepartment());
         person.setEmail(personRequestDto.getEmail());
         person.setFirstName(personRequestDto.getFirstName());
         person.setMiddleName(personRequestDto.getMiddleName());
         person.setLastName(personRequestDto.getLastName());
         person.setPhoneNumber(personRequestDto.getPhoneNumber());
-        person.setDepartment(personRequestDto.getDepartment());
 
         personRepository.save(person);
         return new ResponseDto(true, "Updated Method");
@@ -63,16 +59,15 @@ public class PersonService {
     }
 
     public ResponseDto deletePersonById(Long id) {
-
         personRepository.deleteById(id);
 
         return new ResponseDto(true, "deleted successfully");
     }
 
-    public ResponseDto getPersonById(Long id) {
+    public Person getPersonById(Long id) {
+       return personRepository.findById(id).get();
 
-         personRepository.findById(id).get();
-         return new ResponseDto(true, "Get Each Result By Id");
+      //   return new ResponseDto(true, "Get Each Result By Id");
 
     }
 

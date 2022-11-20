@@ -18,5 +18,5 @@ public class Category {
     private Long id;
 
    @Column(name = "description")
-    private char description;
+    private String description;
 }
